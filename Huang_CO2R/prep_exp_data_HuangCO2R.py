@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+
+import sys, os
+import numpy as np
+from scipy.optimize import curve_fit, leastsq
+from copy import deepcopy
+sys.path.append('../.')
+from plot_paper_data import _write_pickle_file
+
+def _read_header(txtfile):
+    with open(txtfile, 'r') as infile:
+        hline = infile.readlines()[0][1:]
+    return(hline)
+
+def _read_meta_data(mfile):
+    with open(mfile, 'r') as infile:
+        lines = infile.readlines()
+    dat = {}
+    for l in lines:
+        e = [s.strip() for s in l.split('=')]
+        dat.update({e[0]:e[1]})
+    return(dat)
+
+if __name__ == "__main__":
+    # read main data
+    # no std std deviation
+    full_data = {}
+    for i in range(1,5):
+        nfile = 'raw_data_%i.txt'%i
+        keys = _read_header(nfile).split()
+        val = np.loadtxt(nfile)
+        
+        # data are partial current densities --> compute tot density
+        # scaled by FE tot and FE of products
+        jsum = val[:,2:].sum(axis=1)
+        jtot = jsum/(val[:,1]/100.)
+        
+        sfile = 'raw_std_%i.txt'%i
+        skeys = _read_header(sfile).split()
+        std = np.loadtxt(sfile)
+        
+        # compute FEs
+        for j in range(len(jtot)):
+            val[j,2:] /= jtot[j]
+            std[j,1:] /= jtot[j]
+
+        # prep data
+        data = {keys[k]:np.zeros((val.shape[0], 2)) for k in range(len(keys)) if keys[k] != 'FE_tot'}
+        for k in data:
+            data[k][:,0] = val[:,keys.index(k)]
+            if k in skeys and k != 'V_RHE':
+                data[k][:,1] = std[:,skeys.index(k)]
+        v = np.zeros((len(jtot),2)); v[:,0] = jtot
+        data.update({'I(mA/cm2)':v})
+        
+        mfile = 'meta_data_%i.txt'%i
+        mdat = _read_meta_data(mfile)
+        data.update(mdat)
+
+        # sort into one file 
+        full_data.update({mdat['catalyst']:data})
+    
+
+    # save data
+    name = os.getcwd().split('/')[-1]
+    _write_pickle_file("%s.pkl"%name, full_data)
+
+

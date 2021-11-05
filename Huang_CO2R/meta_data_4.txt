@@ -1,0 +1,6 @@
+mode = CO2R
+pH = 6.8
+catalyst = 110
+roughness = 1.0
+cell = H-cell
+doi = 10.1021/acscatal.6b03147

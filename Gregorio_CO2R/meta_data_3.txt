@@ -1,0 +1,6 @@
+mode = CO2R
+pH = 14.0
+catalyst = Cu-oh
+roughness = 1.52
+cell = GDE
+doi = 10.1021/acscatal.0c00297

@@ -1,0 +1,6 @@
+mode = COR
+pH = 13.0
+catalyst = pc-Cu
+roughness = 1.0
+cell = H-cell
+doi = 10.1021/acsenergylett.8b00092
