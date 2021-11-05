@@ -1,0 +1,6 @@
+mode = COR
+pH = 14
+catalyst = Cu-NP-2
+roughness = 15
+cell = GDE
+doi = 10.1016/j.joule.2018.10.007

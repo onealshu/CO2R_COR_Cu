@@ -1,0 +1,6 @@
+mode = COR
+pH = 13.0
+catalyst = Cu-NP
+roughness = 29.5
+cell = H-cell
+doi = 10.1038/nature13249
