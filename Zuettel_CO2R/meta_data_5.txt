@@ -1,0 +1,6 @@
+mode = CO2R
+pH = 14.00
+catalyst = Cu-NW1
+roughness = 165
+cell = GDE
+doi = 10.1039/c9ta06736a

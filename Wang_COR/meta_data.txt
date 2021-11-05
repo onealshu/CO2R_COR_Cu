@@ -1,0 +1,6 @@
+mode = COR
+pH = 13.0
+catalyst = PC-Cu-foil
+roughness = 1.05
+cell = H-cell
+doi = 10.1021/acscatal.8b01200
