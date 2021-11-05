@@ -1,0 +1,6 @@
+mode = CO2R
+pH = 8.4
+catalyst = Cu-Sputtered
+roughness = None
+cell = GDE
+doi = 10.1039/d0ee00047g
